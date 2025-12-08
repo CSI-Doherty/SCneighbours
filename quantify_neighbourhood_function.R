@@ -39,6 +39,46 @@ calculate_neighbour_distance_for_all_cells <- function(seu, reduction, colname, 
   seu
 }
 
+calculate_neighbour_percentage <- function(seu, meta_data_column, meta_data_highlight, graph){
+	sn = colnames(seu@graphs[[graph]])[colSums(seu@graphs[[graph]][seu[[meta_data_column]] == meta_data_highlight,]) > 0]
+	ids = factor(seu@meta.data[sn,meta_data_column], levels = levels(factor(seu@meta.data[,meta_data_column])))
+	table(ids) %>% as.data.frame() %>%
+		mutate(f = Freq/sum(Freq)*100)
+}
+
+
+calculate_neighbour_percentage_all_ids <- function(seu, meta_data_column, graph){
+	ids = levels(factor(seu@meta.data[,meta_data_column]))
+	results = data.frame(ids = ids)
+	for(i in ids){
+		results[,i] = calculate_neighbour_percentage(seu, meta_data_column = meta_data_column, meta_data_highlight = i, graph)$f
+	}
+	return(results)
+}
+
+visualise_neighbour_percentage <- function(seu, meta_data_column, graph) {
+	x = calculate_neighbour_percentage_all_ids(seu, meta_data_column, graph)
+	d = dist(t(x[,-1]))
+	h = hclust(d)
+	
+	x %>% pivot_longer(-ids) %>% 
+		mutate(name = factor(name, levels = h$labels[h$order]),
+					 ids = factor(ids, levels = h$labels[h$order])) %>%
+		ggplot(aes(name,ids)) +
+		geom_tile(aes(fill = value)) +
+		scale_fill_gradientn(colours =  plotto_color_gradient_blue_red) +
+		theme_classic() +
+		theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+		labs(x = element_blank(), y=element_blank(), fill = "% shared")
+}
+
+calculate_outside_neighbours_cell <- function(seu, meta_data_column, graph, colname){
+	for(i in 1:nrow(seu@meta.data)){
+		ids = seu@meta.data[[meta_data_column]][seu@graphs[[graph]][i,]>0]
+		seu@meta.data[[colname]][i] = (1-sum(ids == seu@meta.data[[meta_data_column]][i])/length(ids))*100
+	}
+	return(seu)
+}
 
 
 

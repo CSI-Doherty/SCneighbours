@@ -47,7 +47,7 @@ visualize_neighbourhood = function(seu, meta_data_column, meta_data_highlight, r
     ggplot(d, aes(!!axis_1, !!axis_2)) +
       geom_point(colour = "grey") +
       geom_point(data = d[d$neighbour,], colour = "red", size = 0.6) +
-      theme_classic()+ ggtitle(paste0(meta_data_column, meta_data_highlight))
+      theme_classic()+ ggtitle(paste(meta_data_column, meta_data_highlight))
 
   } else{
     # d %>% mutate(m = seu[[meta_data_column]]) %>%
