@@ -1,0 +1,27 @@
+Package: SCneighbours
+Type: Package
+Title: Single-Cell Neighbourhood Exploration Tool
+Version: 0.1.0
+Authors@R: person("First", "Last", email = "your.email@example.com", role = c("aut", "cre"))
+Description: Tools for visualizing and quantifying cell neighbourhoods in
+    single-cell RNA sequencing data. Provides functions to visualize cell
+    neighbourhoods as dots or density contours on dimensionality reduction
+    maps, quantify neighbourhood distributions by variance in coordinates,
+    and explore neighbourhoods across various dimensionality reductions.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends:
+    R (>= 3.5.0)
+Imports:
+    Seurat,
+    dplyr,
+    ggplot2,
+    tidyr,
+    tibble,
+    rlang,
+    ks,
+    BBmisc,
+    purrr,
+    magrittr
+RoxygenNote: 7.3.2
