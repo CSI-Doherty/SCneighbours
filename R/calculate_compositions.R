@@ -80,8 +80,6 @@ calculate_neighbour_percentage_all_ids <- function(seu, meta_data_column, graph)
 #' @export
 calculate_outside_neighbours_cell <- function(seu, meta_data_column, graph, colname){
     
-    
-    
 	for(i in 1:nrow(seu@meta.data)){
 		ids = seu@meta.data[[meta_data_column]][seu@graphs[[graph]][i,]>0]
 		seu@meta.data[[colname]][i] = (1-sum(ids == seu@meta.data[[meta_data_column]][i])/length(ids))*100
