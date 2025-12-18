@@ -4,7 +4,7 @@
 \alias{check_single_cell_object}
 \title{check_single_cell_object}
 \usage{
-check_single_cell_object(obj)
+check_single_cell_object(obj, graph, reduction = NULL)
 }
 \arguments{
 \item{obj}{An object to validate (should be either Seurat or SingleCellExperiment).}
@@ -13,9 +13,10 @@ check_single_cell_object(obj)
 A named list with the following elements:
   \itemize{
     \item \code{type} - Character string: "Seurat" or "SingleCellExperiment"
-    \item \code{object} - The original input object
+    \item \code{embeddings} - Tibble of the selected reduction embeddings
+    \item \code{key} - Character string of embedding dimension name key
     \item \code{metadata} - Data frame of cell metadata
-    \item \code{graphs} - List of available neighbor graphs
+    \item \code{graphs} - Seurat style nearest neighbour graph
     \item \code{n_cells} - Integer, number of cells in the dataset
     \item \code{cell_names} - Character vector of cell identifiers
   }

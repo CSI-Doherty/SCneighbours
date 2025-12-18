@@ -8,7 +8,7 @@ visualize_neighbourhood(
   seu,
   meta_data_column,
   meta_data_highlight,
-  reduction,
+  reduction = NULL,
   density = F,
   graph = "RNA_nn",
   percent = 95

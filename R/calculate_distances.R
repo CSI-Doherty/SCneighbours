@@ -9,25 +9,29 @@
 #'
 #' @export
 #' @importFrom BBmisc normalize
-#' @importFrom Seurat Embeddings
+#' @importFrom dplyr filter
 neighbour_distance.scaled = function(i, reduction, seu, graph = "RNA_nn") {
   # extract neighbour cells of cell i
-  n = colnames(seu@graphs[[graph]])[seu@graphs[[graph]][i,] == 1]
+	
+	obj <- check_single_cell_object(seu, graph, reduction)
+	
+	g <- obj[['graph']]
+	embed.scale <- obj[['embeddings']]
+	
+  n = colnames(g)[g[i,] == 1]
 
   # normalize dimension scales
-  embed.scale <- Seurat::Embeddings(seu, reduction = reduction)
-  embed.scale[,1] <- BBmisc::normalize(embed.scale[,1], method = "range", range = c(-8, 8))
   embed.scale[,2] <- BBmisc::normalize(embed.scale[,2], method = "range", range = c(-8, 8))
+  embed.scale[,3] <- BBmisc::normalize(embed.scale[,3], method = "range", range = c(-8, 8))
 
   # dims of 20 cells
-  e = embed.scale[n, ]
+  e <- embed.scale %>% filter(bc %in% n)
 
-    if('numeric' %in% class(e)){
-      
-      return(mean(c(e[[1]], e[[2]])))
+  if('numeric' %in% class(e)){
+  	return(mean(c(e[[2]], e[[3]])))
   }
   # variance in dim
-  return(mean(var(e[,1]), var(e[,2])))
+  return(mean(var(e[,2]), var(e[,3])))
 }
 
 
@@ -37,13 +41,25 @@ neighbour_distance.scaled = function(i, reduction, seu, graph = "RNA_nn") {
 #' @param reduction The reduction map used to calculate the coordinate variance.
 #' @param colname The column name to store the neighbourhood distance value in metadata.
 #' @param graph Name of the nearest-neighbour graph to use from seu@graphs.
-#' @return A Seurat object with a new metadata column storing the variance in coordinates of neighbour cells for each cell
+#' @return A Seurat or SingleCellExperiment object with a new metadata column storing the variance in coordinates of neighbour cells for each cell
 #' @export
 calculate_neighbour_distance_for_all_cells <- function(seu, reduction, colname, graph) {
-  for(i in 1:nrow(seu@meta.data)){
+	obj <- check_single_cell_object(seu, graph, reduction)
+	
+	meta <- obj[['metadata']]
+	n <- obj[['n_cells']] 
+	
+  for(i in 1:n){
       
-      seu@meta.data[[colname]][i] = neighbour_distance.scaled(i, reduction, seu, graph)
+      meta[[colname]][i] = neighbour_distance.scaled(i, reduction, obj, graph)
       
-      }
-  seu
+  }
+	if(inherits(seu, "Seurat")){
+		seu@meta.data <- meta
+		return(seu)
+	} else if(inherits(seu, "SingleCellExperiment")){
+		seu@colData <- DataFrame(meta)
+		return(seu)
+	}
+	return(meta)
 }

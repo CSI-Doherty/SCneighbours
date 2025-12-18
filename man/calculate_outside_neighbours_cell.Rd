@@ -4,7 +4,13 @@
 \alias{calculate_outside_neighbours_cell}
 \title{calculate_outside_neighbours_cell}
 \usage{
-calculate_outside_neighbours_cell(seu, meta_data_column, graph, colname)
+calculate_outside_neighbours_cell(
+  seu,
+  meta_data_column,
+  graph,
+  colname,
+  reduction = NULL
+)
 }
 \arguments{
 \item{seu}{A Seurat object containing single-cell data with nearest-neighbour

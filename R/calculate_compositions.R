@@ -17,14 +17,14 @@
 #' @importFrom magrittr %>%
 #' @importFrom dplyr mutate
 #' @export
-calculate_neighbour_percentage <- function(seu, meta_data_column, meta_data_highlight, graph){
+calculate_neighbour_percentage <- function(seu, meta_data_column, meta_data_highlight, graph = 'RNA_nn', reduction = NULL){
     
-    obj = check_single_cell_object(seu)
+    obj = check_single_cell_object(seu, graph, reduction)
     
-    graph = obj[['graphs']][[graph]]
+    g = obj[['graph']]
     meta = obj[['metadata']]
     
-    sn = colnames(graph)[Matrix::colSums(graph[meta[[meta_data_column]] == meta_data_highlight,]) > 0]
+    sn = colnames(g)[Matrix::colSums(g[meta[[meta_data_column]] == meta_data_highlight,]) > 0]
     ids = factor(meta[sn,meta_data_column], levels = levels(factor(meta[,meta_data_column])))
     table(ids) %>% as.data.frame() %>%
         mutate(f = Freq/sum(Freq)*100)
@@ -47,11 +47,17 @@ calculate_neighbour_percentage <- function(seu, meta_data_column, meta_data_high
 #'   labels, and subsequent columns (named by cell type) contain the percentage
 #'   of neighbours belonging to each cell type.
 #' @export
-calculate_neighbour_percentage_all_ids <- function(seu, meta_data_column, graph){
-	ids = levels(factor(seu@meta.data[,meta_data_column]))
+calculate_neighbour_percentage_all_ids <- function(seu, meta_data_column, graph = 'RNA_nn', reduction = NULL){
+	obj = check_single_cell_object(seu, graph, reduction)
+	
+	g = obj[['graph']]
+	meta = obj[['metadata']]
+	
+	
+	ids = levels(factor(meta[,meta_data_column]))
 	results = data.frame(ids = ids)
 	for(i in ids){
-		results[,i] = calculate_neighbour_percentage(seu, meta_data_column = meta_data_column, meta_data_highlight = i, graph)$f
+		results[,i] = calculate_neighbour_percentage(obj, meta_data_column = meta_data_column, meta_data_highlight = i, graph, reduction)$f
 	}
 	return(results)
 }
@@ -78,11 +84,26 @@ calculate_neighbour_percentage_all_ids <- function(seu, meta_data_column, graph)
 #'   percentage of neighbours (0-100) that belong to a different group than the
 #'   cell itself.
 #' @export
-calculate_outside_neighbours_cell <- function(seu, meta_data_column, graph, colname){
-    
-	for(i in 1:nrow(seu@meta.data)){
-		ids = seu@meta.data[[meta_data_column]][seu@graphs[[graph]][i,]>0]
-		seu@meta.data[[colname]][i] = (1-sum(ids == seu@meta.data[[meta_data_column]][i])/length(ids))*100
+calculate_outside_neighbours_cell <- function(seu, meta_data_column, graph, colname, reduction = NULL){
+	obj = check_single_cell_object(seu, graph, reduction)
+	
+	g = obj[['graph']]
+	meta = obj[['metadata']]  
+	
+	
+	# for(i in 1:nrow(seu@meta.data)){
+	# 	ids = seu@meta.data[[meta_data_column]][seu@graphs[[graph]][i,]>0]
+	# 	seu@meta.data[[colname]][i] = (1-sum(ids == seu@meta.data[[meta_data_column]][i])/length(ids))*100
+	# }
+	
+	for(i in 1:nrow(meta)){
+		ids = meta[[meta_data_column]][g[i,]>0]
+		if(inherits(seu, 'Seurat')){
+			seu@meta.data[[colname]][i] = (1-sum(ids == meta[[meta_data_column]][i])/length(ids))*100
+		} else {
+			seu[[colname]][i] = (1-sum(ids == meta[[meta_data_column]][i])/length(ids))*100
+		}
+		
 	}
 	return(seu)
 }

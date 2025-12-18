@@ -8,7 +8,8 @@ calculate_neighbour_percentage(
   seu,
   meta_data_column,
   meta_data_highlight,
-  graph
+  graph = "RNA_nn",
+  reduction = NULL
 )
 }
 \arguments{

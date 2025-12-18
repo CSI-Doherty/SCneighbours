@@ -4,7 +4,12 @@
 \alias{calculate_neighbour_percentage_all_ids}
 \title{calculate_neighbour_percentage_all_ids}
 \usage{
-calculate_neighbour_percentage_all_ids(seu, meta_data_column, graph)
+calculate_neighbour_percentage_all_ids(
+  seu,
+  meta_data_column,
+  graph = "RNA_nn",
+  reduction = NULL
+)
 }
 \arguments{
 \item{seu}{A Seurat object containing single-cell data with nearest-neighbour
