@@ -20,11 +20,12 @@
 #' @importFrom igraph as_adjacency_matrix
 #' @importFrom tibble as_tibble
 #' @importFrom SingleCellExperiment reducedDim
-check_single_cell_object <- function(obj, graph, reduction = NULL){
+check_single_cell_object <- function(obj, graph = NULL, reduction = NULL){
 		if (inherits(obj, "scn_object")){
 			return(obj)
 		} else if (inherits(obj, "Seurat")) {
     	if(is.null(reduction)){reduction = 'umap'}
+			if(is.null(graph)){graph = 'RNA_nn'}
 			if(inherits(graph, "character")){
 				adjm = obj@graphs[[graph]]
 				if(is.null(adjm)){
@@ -68,8 +69,8 @@ check_single_cell_object <- function(obj, graph, reduction = NULL){
     	nc <-list(
             type = "SingleCellExperiment",
             #object = obj,
-            embeddings = reducedDim(obj, reduction) %>% as_tibble(rownames = "bc"),
-            key = gsub('1', '',colnames(reducedDim(obj, reduction))[1]),
+            embeddings = SingleCellExperiment::reducedDim(obj, reduction) %>% as_tibble(rownames = "bc"),
+            key = gsub('1', '',colnames(SingleCellExperiment::reducedDim(obj, reduction))[1]),
             metadata = as.data.frame(SingleCellExperiment::colData(obj)),
             graph = SeuratObject::as.Graph(adjm),
             n_cells = ncol(obj),

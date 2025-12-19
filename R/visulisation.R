@@ -20,7 +20,7 @@
 #' @importFrom ggplot2 ggplot aes geom_tile scale_fill_gradientn theme_classic theme element_text labs element_blank
 #' @importFrom stats dist hclust
 #' @importFrom magrittr %>%
-visualise_neighbour_percentage <- function(seu, meta_data_column, graph) {
+visualise_neighbour_percentage <- function(seu, meta_data_column, graph = devNULL) {
 	x = calculate_neighbour_percentage_all_ids(seu, meta_data_column, graph)
 	d = dist(t(x[,-1]))
 	h = hclust(d)

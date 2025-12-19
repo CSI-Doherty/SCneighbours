@@ -84,7 +84,7 @@ calculate_neighbour_percentage_all_ids <- function(seu, meta_data_column, graph 
 #'   percentage of neighbours (0-100) that belong to a different group than the
 #'   cell itself.
 #' @export
-calculate_outside_neighbours_cell <- function(seu, meta_data_column, graph, colname, reduction = NULL){
+calculate_outside_neighbours_cell <- function(seu, meta_data_column, graph = "RNA_nn", colname, reduction = NULL){
 	obj = check_single_cell_object(seu, graph, reduction)
 	
 	g = obj[['graph']]

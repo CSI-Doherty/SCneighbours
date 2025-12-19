@@ -10,7 +10,7 @@
 #' @export
 #' @importFrom BBmisc normalize
 #' @importFrom dplyr filter
-neighbour_distance.scaled = function(i, reduction, seu, graph = "RNA_nn") {
+neighbour_distance.scaled = function(i, reduction, seu, graph = NULL) {
   # extract neighbour cells of cell i
 	
 	obj <- check_single_cell_object(seu, graph, reduction)
@@ -43,7 +43,7 @@ neighbour_distance.scaled = function(i, reduction, seu, graph = "RNA_nn") {
 #' @param graph Name of the nearest-neighbour graph to use from seu@graphs.
 #' @return A Seurat or SingleCellExperiment object with a new metadata column storing the variance in coordinates of neighbour cells for each cell
 #' @export
-calculate_neighbour_distance_for_all_cells <- function(seu, reduction, colname, graph) {
+calculate_neighbour_distance_for_all_cells <- function(seu, reduction, colname, graph = NULL) {
 	obj <- check_single_cell_object(seu, graph, reduction)
 	
 	meta <- obj[['metadata']]
@@ -58,7 +58,7 @@ calculate_neighbour_distance_for_all_cells <- function(seu, reduction, colname, 
 		seu@meta.data <- meta
 		return(seu)
 	} else if(inherits(seu, "SingleCellExperiment")){
-		seu@colData <- DataFrame(meta)
+		seu@colData <- S4Vectors::DataFrame(meta)
 		return(seu)
 	}
 	return(meta)
