@@ -79,9 +79,12 @@ Using SC neighbours we can see that there is neighbourhood sharing between the 2
 ```
 visualize_neighbourhood(seu, meta_data_column = 'seurat_clusters', meta_data_highlight = 1, 'umap', density = T) +
 visualize_neighbourhood(seu, meta_data_column = 'seurat_clusters', meta_data_highlight = 1, 'umap', density = F)
+
+visualize_neighbourhood(seu, 'seurat_clusters', 2, density = T, percent = 90) +
+visualize_neighbourhood(seu, 'seurat_clusters', 2, density = F)
 ```
 ![Cluster 1 neighbourhoood](img/f3d27916-5923-4a63-81f6-4f2ca9c5587b.png)
-
+![Cluster 2 neighbourhoood](img/d4e4f029-6729-40d5-abba-015398fb2b0a.png)
 
 A heatmap showing all neighbourhood sharing of clusters can be generated with visualise_neighbour_percentage.
 ```
