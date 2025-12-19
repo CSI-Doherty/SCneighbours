@@ -53,19 +53,20 @@ The PBMCs are merged without integration and Run through a standard pipeline to 
 
 ```
 seu <- merge(ifnb, pbmc)
-seu <- Seurat::NormalizeData(seu)
-seu <- Seurat::FindVariableFeatures(seu)
-seu <- Seurat::ScaleData(seu)
-seu <- Seurat::RunPCA(seu)
+seu <- NormalizeData(seu)
+seu <- FindVariableFeatures(seu)
+seu <- ScaleData(seu)
+seu <- RunPCA(seu)
 
-seu <- Seurat::FindNeighbors(seu, dims = 1:30, reduction = "pca")
-seu <- Seurat::FindClusters(seu, resolution = 0.5)
+seu <- FindNeighbors(seu, dims = 1:30, reduction = "pca")
+seu <- FindClusters(seu, resolution = 0.5)
 
 
-seu <- Seurat::RunUMAP(seu, dims = 1:30, reduction = "pca")
+seu <- RunUMAP(seu, dims = 1:30, reduction = "pca")
 ```
-Here we can see 
 
+![Example UMAP](img/5a50c439-2851-4566-b4f6-8d889b42e404.png)
+![CD3 UMAP](img/6d470ce6-5f3b-45d7-aac5-1104a38306c3.png)
 
 ```
 DimPlot(seu, group.by = c("orig.ident", "seurat_clusters"))
@@ -78,5 +79,5 @@ Using SC neighbours we can see that there is neighbourhood sharing between the 2
 ```
 visualize_neighbourhood(seu, meta_data_column = 'seurat_clusters', meta_data_highlight = 2, 'umap', density = T))
 ```
-
+![Cluster 1 neighbourhoood](img/f3d27916-5923-4a63-81f6-4f2ca9c5587b.png)
 
