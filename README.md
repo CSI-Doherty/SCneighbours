@@ -34,3 +34,60 @@ The cell neighbourhoods can be explored across various dimensionality reductions
 
 For example, diffusion map and force-directed layout can provide clues about cell development by preserving the continuous cell transitioning trajectories.
 
+
+## Example
+
+Here we use 2 different PBMC datasets from SeuratData to demonstrate usage.
+
+```
+SeuratData::InstallData("ifnb")
+SeuratData::InstallData("pbmc3k")
+
+ifnb <- SeuratData::LoadData("ifnb")
+pbmc <- SeuratData::LoadData("pbmc3k")
+
+ifnb <- subset(ifnb, stim == 'CTRL')
+```
+
+The PBMCs are merged without integration and Run through a standard pipeline to generate a nearest neighbour graph, clusters, and UMAP reduction.
+
+```
+seu <- merge(ifnb, pbmc)
+seu <- NormalizeData(seu)
+seu <- FindVariableFeatures(seu)
+seu <- ScaleData(seu)
+seu <- RunPCA(seu)
+
+seu <- FindNeighbors(seu, dims = 1:30, reduction = "pca")
+seu <- FindClusters(seu, resolution = 0.5)
+
+
+seu <- RunUMAP(seu, dims = 1:30, reduction = "pca")
+```
+
+![Example UMAP](img/5a50c439-2851-4566-b4f6-8d889b42e404.png)
+![CD3 UMAP](img/6d470ce6-5f3b-45d7-aac5-1104a38306c3.png)
+
+```
+DimPlot(seu, group.by = c("orig.ident", "seurat_clusters"))
+FeaturePlot(seu, "CD3E")
+```
+
+Here the T cells are split into 2 clusters for the seperate datasets.
+
+Using SC neighbours we can see that there is neighbourhood sharing between the 2 seperate T cell clusters. 
+```
+visualize_neighbourhood(seu, meta_data_column = 'seurat_clusters', meta_data_highlight = 1, 'umap', density = T) +
+visualize_neighbourhood(seu, meta_data_column = 'seurat_clusters', meta_data_highlight = 1, 'umap', density = F)
+
+visualize_neighbourhood(seu, 'seurat_clusters', 2, density = T, percent = 90) +
+visualize_neighbourhood(seu, 'seurat_clusters', 2, density = F)
+```
+![Cluster 1 neighbourhoood](img/f3d27916-5923-4a63-81f6-4f2ca9c5587b.png)
+![Cluster 2 neighbourhoood](img/d4e4f029-6729-40d5-abba-015398fb2b0a.png)
+
+A heatmap showing all neighbourhood sharing of clusters can be generated with visualise_neighbour_percentage.
+```
+visualise_neighbour_percentage(seu = seu, graph = 'RNA_nn', meta_data_column = 'seurat_clusters')
+```
+![Heatmap Example](img/90951f5b-ea10-4cf6-8c51-60d88cd4be62.png)
