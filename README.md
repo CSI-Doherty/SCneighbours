@@ -34,3 +34,49 @@ The cell neighbourhoods can be explored across various dimensionality reductions
 
 For example, diffusion map and force-directed layout can provide clues about cell development by preserving the continuous cell transitioning trajectories.
 
+
+## Example
+
+Here we use 2 different PBMC datasets from SeuratData to demonstrate usage.
+
+```
+SeuratData::InstallData("ifnb")
+SeuratData::InstallData("pbmc3k")
+
+ifnb <- SeuratData::LoadData("ifnb")
+pbmc <- SeuratData::LoadData("pbmc3k")
+
+ifnb <- subset(ifnb, stim == 'CTRL')
+```
+
+The PBMCs are merged without integration and Run through a standard pipeline to generate a nearest neighbour graph, clusters, and UMAP reduction.
+
+```
+seu <- merge(ifnb, pbmc)
+seu <- Seurat::NormalizeData(seu)
+seu <- Seurat::FindVariableFeatures(seu)
+seu <- Seurat::ScaleData(seu)
+seu <- Seurat::RunPCA(seu)
+
+seu <- Seurat::FindNeighbors(seu, dims = 1:30, reduction = "pca")
+seu <- Seurat::FindClusters(seu, resolution = 0.5)
+
+
+seu <- Seurat::RunUMAP(seu, dims = 1:30, reduction = "pca")
+```
+Here we can see 
+
+
+```
+DimPlot(seu, group.by = c("orig.ident", "seurat_clusters"))
+FeaturePlot(seu, "CD3E")
+```
+
+Here the T cells are split into 2 clusters for the seperate datasets.
+
+Using SC neighbours we can see that there is neighbourhood sharing between the 2 seperate T cell clusters. 
+```
+visualize_neighbourhood(seu, meta_data_column = 'seurat_clusters', meta_data_highlight = 2, 'umap', density = T))
+```
+
+
