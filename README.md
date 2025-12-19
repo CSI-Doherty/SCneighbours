@@ -87,4 +87,4 @@ A heatmap showing all neighbourhood sharing of clusters can be generated with vi
 ```
 visualise_neighbour_percentage(seu = seu, graph = 'RNA_nn', meta_data_column = 'seurat_clusters')
 ```
-![Heatmap Example](90951f5b-ea10-4cf6-8c51-60d88cd4be62.png)
+![Heatmap Example](img/90951f5b-ea10-4cf6-8c51-60d88cd4be62.png)
