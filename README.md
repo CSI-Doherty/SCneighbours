@@ -77,7 +77,14 @@ Here the T cells are split into 2 clusters for the seperate datasets.
 
 Using SC neighbours we can see that there is neighbourhood sharing between the 2 seperate T cell clusters. 
 ```
-visualize_neighbourhood(seu, meta_data_column = 'seurat_clusters', meta_data_highlight = 2, 'umap', density = T))
+visualize_neighbourhood(seu, meta_data_column = 'seurat_clusters', meta_data_highlight = 1, 'umap', density = T) +
+visualize_neighbourhood(seu, meta_data_column = 'seurat_clusters', meta_data_highlight = 1, 'umap', density = F)
 ```
 ![Cluster 1 neighbourhoood](img/f3d27916-5923-4a63-81f6-4f2ca9c5587b.png)
 
+
+A heatmap showing all neighbourhood sharing of clusters can be generated with visualise_neighbour_percentage.
+```
+visualise_neighbour_percentage(seu = seu, graph = 'RNA_nn', meta_data_column = 'seurat_clusters')
+```
+![Heatmap Example](90951f5b-ea10-4cf6-8c51-60d88cd4be62.png)
