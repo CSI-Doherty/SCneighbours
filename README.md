@@ -91,3 +91,13 @@ A heatmap showing all neighbourhood sharing of clusters can be generated with vi
 visualise_neighbour_percentage(seu = seu, graph = 'RNA_nn', meta_data_column = 'seurat_clusters')
 ```
 ![Heatmap Example](img/90951f5b-ea10-4cf6-8c51-60d88cd4be62.png)
+
+For each cell we can calculate the percentage of cells from its neighbours share the cells, cluster (or other metadata column).
+```
+seu <- calculate_outside_neighbours_cell(seu, 'seurat_clusters',colname = 'outside_neighbourhood')
+FeaturePlot(seu, outside_neighbourhood)
+```
+![Outside neighbours](img/7f04a6c9-25b1-4163-a13c-61535023ac52.png)
+
+Here we see can see the high percentage cells form the boundaries between clusters, even when those boundaries don't appear close together on the UMAP.
+
