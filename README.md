@@ -92,7 +92,7 @@ visualise_neighbour_percentage(seu = seu, graph = 'RNA_nn', meta_data_column = '
 ```
 ![Heatmap Example](img/90951f5b-ea10-4cf6-8c51-60d88cd4be62.png)
 
-For each cell we can calculate the percentage of cells from its neighbours share the cells, cluster (or other metadata column).
+For each cell we can calculate the percentage of cells from its neighbours share the cells cluster (or other metadata column).
 ```
 seu <- calculate_outside_neighbours_cell(seu, 'seurat_clusters',colname = 'outside_neighbourhood')
 FeaturePlot(seu, outside_neighbourhood)
@@ -100,4 +100,13 @@ FeaturePlot(seu, outside_neighbourhood)
 ![Outside neighbours](img/7f04a6c9-25b1-4163-a13c-61535023ac52.png)
 
 Here we see can see the high percentage cells form the boundaries between clusters, even when those boundaries don't appear close together on the UMAP.
+
+For each cell we can calculate the variance in the distance to it it neighbours based on a reductions embeddings.  This can be useful to see if there are any problems with your UMAP or there are some problamtic cells in your dataset.
+
+```
+seu <- calculate_neighbour_distance_for_all_cells(seu, reduction = 'umap', colname = 'neighbour_distance')
+FeaturePlot(seu, 'neighbour_distance')
+```
+
+
 
