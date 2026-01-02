@@ -6,6 +6,7 @@ Note: The functions are using the nearest-neighbour graph from the RNA assay (RN
 ## Installation
 
 library(devtools)
+
 install_github("https://github.com/CSI-Doherty/SCneighbours")
 
 ## Technique 1: Visualization of Cell Neighbourhoods
