@@ -71,8 +71,8 @@ seu <- FindClusters(seu, resolution = 0.5)
 seu <- RunUMAP(seu, dims = 1:30, reduction = "pca")
 ```
 
-![Example UMAP](img/5a50c439-2851-4566-b4f6-8d889b42e404.png)
-![CD3 UMAP](img/6d470ce6-5f3b-45d7-aac5-1104a38306c3.png)
+![Example UMAP](https://github.com/CSI-Doherty/SCneighbours/blob/cc94e9650441d4a5b53e13fd94244557d5b750de/img/5a50c439-2851-4566-b4f6-8d889b42e404.png)
+![CD3 UMAP](https://github.com/CSI-Doherty/SCneighbours/blob/cc94e9650441d4a5b53e13fd94244557d5b750de/img/6d470ce6-5f3b-45d7-aac5-1104a38306c3.png)
 
 ```
 DimPlot(seu, group.by = c("orig.ident", "seurat_clusters"))
@@ -89,21 +89,21 @@ visualize_neighbourhood(seu, meta_data_column = 'seurat_clusters', meta_data_hig
 visualize_neighbourhood(seu, 'seurat_clusters', 2, density = T, percent = 90) +
 visualize_neighbourhood(seu, 'seurat_clusters', 2, density = F)
 ```
-![Cluster 1 neighbourhoood](img/f3d27916-5923-4a63-81f6-4f2ca9c5587b.png)
-![Cluster 2 neighbourhoood](img/d4e4f029-6729-40d5-abba-015398fb2b0a.png)
+![Cluster 1 neighbourhoood](https://github.com/CSI-Doherty/SCneighbours/blob/cc94e9650441d4a5b53e13fd94244557d5b750de/img/f3d27916-5923-4a63-81f6-4f2ca9c5587b.png)
+![Cluster 2 neighbourhoood](https://github.com/CSI-Doherty/SCneighbours/blob/cc94e9650441d4a5b53e13fd94244557d5b750de/img/d4e4f029-6729-40d5-abba-015398fb2b0a.png)
 
 A heatmap showing all neighbourhood sharing of clusters can be generated with visualise_neighbour_percentage.
 ```
 visualise_neighbour_percentage(seu = seu, graph = 'RNA_nn', meta_data_column = 'seurat_clusters')
 ```
-![Heatmap Example](img/90951f5b-ea10-4cf6-8c51-60d88cd4be62.png)
+![Heatmap Example](https://github.com/CSI-Doherty/SCneighbours/blob/cc94e9650441d4a5b53e13fd94244557d5b750de/img/90951f5b-ea10-4cf6-8c51-60d88cd4be62.png)
 
 For each cell we can calculate the percentage of cells from its neighbours share the cells cluster (or other metadata column).
 ```
 seu <- calculate_outside_neighbours_cell(seu, 'seurat_clusters',colname = 'outside_neighbourhood')
 FeaturePlot(seu, outside_neighbourhood)
 ```
-![Outside neighbours](img/7f04a6c9-25b1-4163-a13c-61535023ac52.png)
+![Outside neighbours](https://github.com/CSI-Doherty/SCneighbours/blob/cc94e9650441d4a5b53e13fd94244557d5b750de/img/823f2a7f-3fbc-477d-8be8-e9a472dae282.png)
 
 Here we see can see the high percentage cells form the boundaries between clusters, even when those boundaries don't appear close together on the UMAP.
 
