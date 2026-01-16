@@ -1,11 +1,9 @@
 #' Check Single-Cell Object Type and Extract Components
 #'
 #' @title check_single_cell_object
-#' @description Validates that the input object is either a Seurat object or a
-#'   SingleCellExperiment object. Returns a named list containing standardized
-#'   accessors for metadata, graphs, and other components needed by package functions.
-#' @param obj An object to validate (should be either Seurat or SingleCellExperiment).
-#' @return A named list with the following elements:
+#' @description Takes a Seurat or SingleCellExperiment object and converts it into a scn_object.
+#' @param obj An Seurat or SingleCellExperiment object to convert.
+#' @return A S3 scn_object with the following elements:
 #'   \itemize{
 #'     \item \code{type} - Character string: "Seurat" or "SingleCellExperiment"
 #'     \item \code{embeddings} - Tibble of the selected reduction embeddings
@@ -66,7 +64,7 @@ check_single_cell_object <- function(obj, graph = NULL, reduction = NULL){
     		rownames(adjm) <- colnames(obj)
     	} else {stop("Nearest neighbour adjacency graph of class igraph or dgCMatrix must be included with SingleCellExperiment object. ",
     							 "Received object of class: ", class(graph))}
-    	nc <-list(
+    	scn <-list(
             type = "SingleCellExperiment",
             #object = obj,
             embeddings = SingleCellExperiment::reducedDim(obj, reduction) %>% as_tibble(rownames = "bc"),
@@ -80,6 +78,6 @@ check_single_cell_object <- function(obj, graph = NULL, reduction = NULL){
         stop("Input object must be either a Seurat object or a SingleCellExperiment object. ",
              "Received object of class: ", class(obj)[1])
     }
-	class(nc) <- 'scn_object'
-	return(nc)
+	class(scn) <- 'scn_object'
+	return(scn)
 }

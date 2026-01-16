@@ -2,21 +2,23 @@
 #' @title neighbour_distance.scaled.
 #' @description The function to calculate the average variance in coordinates of neighbour cells of a certain cell i based on the provided reduction map.
 #' @param i The cell index.
-#' @param reduction The reduction map used to calculate the coordinate variance.
-#' @param seu The Seurat object.
-#' @param graph Name of the nearest-neighbour graph to use from seu@graphs (default: "RNA_nn").
+#' @param reduction The name of the reduction map stored in the object to be used to calculate the coordinate variance.
+#' @param obj A Seurat, SingleCellExperiment or SCNeighbours object containing single-cell data.
+#' If in Seurat or SingleCellExperiment form will firist be converted to SCneighbours format
+#' @param graph either a nearest neigbour graph in igraph, dgCMatrix or Seurat format, or the name of a graph stored in the Seurat object.
+#'   (e.g., "RNA_nn", "RNA_snn", or "SCT_nn").
 #' @return A number, the average variance in coordinates of neighbour cells of a certain cell i based on the provided reduction map.
 #'
 #' @export
 #' @importFrom BBmisc normalize
 #' @importFrom dplyr filter
-neighbour_distance.scaled = function(i, reduction, seu, graph = NULL) {
+neighbour_distance.scaled = function(i, reduction, obj, graph = NULL) {
   # extract neighbour cells of cell i
 	
-	obj <- check_single_cell_object(seu, graph, reduction)
+	scn <- check_single_cell_object(obj, graph, reduction)
 	
-	g <- obj[['graph']]
-	embed.scale <- obj[['embeddings']]
+	g <- scn[['graph']]
+	embed.scale <- scn[['embeddings']]
 	
   n = colnames(g)[g[i,] == 1]
 
@@ -37,29 +39,31 @@ neighbour_distance.scaled = function(i, reduction, seu, graph = NULL) {
 
 #' @title calculate_neighbour_distance_for_all_cells.
 #' @description The function to calculate the average variance in coordinates of neighbour cells of all cells in the Seurat object based on the provided reduction map.
-#' @param seu The Seurat object.
+#' @param obj A Seurat, SingleCellExperiment or SCNeighbours object containing single-cell data.
+#' If in Seurat or SingleCellExperiment form will firist be converted to SCneighbours format
 #' @param reduction The reduction map used to calculate the coordinate variance.
 #' @param colname The column name to store the neighbourhood distance value in metadata.
-#' @param graph Name of the nearest-neighbour graph to use from seu@graphs.
+#' @param graph either a nearest neigbour graph in igraph, dgCMatrix or Seurat format, or the name of a graph stored in the Seurat object.
+#'   (e.g., "RNA_nn", "RNA_snn", or "SCT_nn").
 #' @return A Seurat or SingleCellExperiment object with a new metadata column storing the variance in coordinates of neighbour cells for each cell
 #' @export
-calculate_neighbour_distance_for_all_cells <- function(seu, reduction, colname, graph = NULL) {
-	obj <- check_single_cell_object(seu, graph, reduction)
+calculate_neighbour_distance_for_all_cells <- function(obj, reduction = NULL, colname, graph = NULL) {
+	scn <- check_single_cell_object(obj, graph, reduction)
 	
-	meta <- obj[['metadata']]
-	n <- obj[['n_cells']] 
+	meta <- scn[['metadata']]
+	n <- scn[['n_cells']] 
 	
   for(i in 1:n){
       
-      meta[[colname]][i] = neighbour_distance.scaled(i, reduction, obj, graph)
+      meta[[colname]][i] = neighbour_distance.scaled(i, reduction, scn, graph)
       
   }
-	if(inherits(seu, "Seurat")){
-		seu@meta.data <- meta
-		return(seu)
-	} else if(inherits(seu, "SingleCellExperiment")){
-		seu@colData <- S4Vectors::DataFrame(meta)
-		return(seu)
+	if(inherits(obj, "Seurat")){
+		obj@meta.data <- meta
+		return(obj)
+	} else if(inherits(obj, "SingleCellExperiment")){
+		obj@colData <- S4Vectors::DataFrame(meta)
+		return(obj)
 	}
 	return(meta)
 }

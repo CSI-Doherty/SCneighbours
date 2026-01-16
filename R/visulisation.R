@@ -6,11 +6,11 @@
 #'   by hierarchical clustering to group similar neighbourhood patterns together.
 #'   This visualization helps identify which cell types have similar spatial
 #'   distributions or microenvironments.
-#' @param seu A Seurat object containing single-cell data with nearest-neighbour
-#'   graphs stored in the graphs slot.
-#' @param meta_data_column Name of the column in seu@meta.data to pull values from
-#'   for grouping and analysis.
-#' @param graph Name of the nearest-neighbour graph to use from seu@graphs
+#' @param obj A Seurat, SingleCellExperiment or SCNeighbours object containing single-cell data.
+#' If in Seurat or SingleCellExperiment form will first be converted to SCneighbours format
+#' @param meta_data_column Name of the metadata column in the object to pull values from
+#'   for identifying the cells of interest.
+#' @param graph either a nearest neigbour graph in igraph, dgCMatrix or Seurat format, or the name of a graph stored in the Seurat object.
 #'   (e.g., "RNA_nn", "RNA_snn", or "SCT_nn").
 #' @return A ggplot2 object showing a heatmap of shared neighbour percentages
 #'   between cell types, with hierarchical clustering on both axes.
@@ -20,8 +20,8 @@
 #' @importFrom ggplot2 ggplot aes geom_tile scale_fill_gradientn theme_classic theme element_text labs element_blank
 #' @importFrom stats dist hclust
 #' @importFrom magrittr %>%
-visualise_neighbour_percentage <- function(seu, meta_data_column, graph = devNULL) {
-	x = calculate_neighbour_percentage_all_ids(seu, meta_data_column, graph)
+visualise_neighbour_percentage <- function(scn, meta_data_column, graph = devNULL) {
+	x = calculate_neighbour_percentage_all_ids(scn, meta_data_column, graph)
 	d = dist(t(x[,-1]))
 	h = hclust(d)
 
@@ -44,10 +44,10 @@ visualise_neighbour_percentage <- function(seu, meta_data_column, graph = devNUL
 #'   cell population in a dimensionality reduction space. Uses 2D kernel density
 #'   estimation to compute contours at a specified percentile level, useful for
 #'   visualizing the spatial distribution of cell populations.
-#' @param seu A Seurat object containing single-cell data with dimensionality
-#'   reductions stored in the reductions slot.
-#' @param meta_data_column Name of the column in seu@meta.data to pull values from
-#'   for subsetting cells.
+#' @param obj A Seurat, SingleCellExperiment or SCNeighbours object containing single-cell data.
+#' If in Seurat or SingleCellExperiment form will first be converted to SCneighbours format
+#' @param meta_data_column Name of the metadata column in the object to pull values from
+#'   for identifying the cells of interest.
 #' @param meta_data_highlight The specific value within meta_data_column to
 #'   calculate contours for.
 #' @param reduction Name of the dimensionality reduction to use (default: "umap").
@@ -58,15 +58,15 @@ visualise_neighbour_percentage <- function(seu, meta_data_column, graph = devNUL
 #' @importFrom ks kde
 #' @importFrom grDevices contourLines
 #' @importFrom magrittr %>%
-CalculateContour = function(seu, meta_data_column, meta_data_highlight, reduction = "umap", percent = 95) {
-	# d = Embeddings(seu, reduction = reduction) %>% as_tibble(rownames = "bc")
+CalculateContour = function(scn, meta_data_column, meta_data_highlight, reduction = "umap", percent = 95) {
+	# d = Embeddings(scn, reduction = reduction) %>% as_tibble(rownames = "bc")
 
-	obj <- check_single_cell_object(seu, graph, reduction)
+	obj <- check_single_cell_object(scn, graph, reduction)
 	
 	d <- obj[['embeddings']] 
 	meta <- obj[['metadata']]
 	
-  #kd <- ks::kde(d[seu[[meta_data_column]] == meta_data_highlight,2:3], compute.cont=TRUE)
+  #kd <- ks::kde(d[scn[[meta_data_column]] == meta_data_highlight,2:3], compute.cont=TRUE)
 	
 	x <- d[meta[[meta_data_column]] == meta_data_highlight,2:3]
 	if(nrow(x) < 3){
@@ -78,7 +78,7 @@ CalculateContour = function(seu, meta_data_column, meta_data_highlight, reductio
                                       z=estimate, levels=cont[paste0(100-percent,"%")])[[1]])
   contour_95 <- data.frame(contour_95)
   #
-  # d[seu[[meta_data_column]] == meta_data_highlight,2:3]
+  # d[scn[[meta_data_column]] == meta_data_highlight,2:3]
   return(contour_95)
 }
 
@@ -91,9 +91,9 @@ CalculateContour = function(seu, meta_data_column, meta_data_highlight, reductio
 #'   neighbours either as simple highlighted points or as density contours showing
 #'   the spatial distribution patterns. This helps understand how cell types
 #'   interact spatially and identify neighbourhood structures.
-#' @param seu A Seurat object containing single-cell data with nearest-neighbour
-#'   graphs and dimensionality reductions.
-#' @param meta_data_column Name of the column in seu@meta.data to pull values from
+#' @param obj A Seurat, SingleCellExperiment or SCNeighbours object containing single-cell data.
+#' If in Seurat or SingleCellExperiment form will firist be converted to SCneighbours format
+#' @param meta_data_column Name of the metadata column in the object to pull values from
 #'   for identifying the cells of interest.
 #' @param meta_data_highlight The specific value within meta_data_column to
 #'   analyze neighbours for (e.g., a specific cluster or cell type).
@@ -101,9 +101,8 @@ CalculateContour = function(seu, meta_data_column, meta_data_highlight, reductio
 #'   (e.g., "umap", "tsne", "pca").
 #' @param density Logical indicating whether to plot density contours (TRUE) or
 #'   simple point highlights (FALSE). Default is FALSE.
-#' @param graph Name of the nearest-neighbour graph to use from seu@graphs
-#'   (default: "RNA_nn"). Use "RNA_snn" for shared nearest neighbours or
-#'   "SCT_nn" if using SCTransform.
+#' @param graph either a nearest neigbour graph in igraph, dgCMatrix or Seurat format, or the name of a graph stored in the Seurat object.
+#'   (e.g., "RNA_nn", "RNA_snn", or "SCT_nn").
 #' @param percent Percentile level for density contours when density=TRUE
 #'   (default: 95). Only used when density=TRUE.
 #' @return A ggplot2 object showing the dimensionality reduction with neighbours
