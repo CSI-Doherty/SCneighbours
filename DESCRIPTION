@@ -29,7 +29,7 @@ Imports:
     SeuratData,
     scran
 Remotes:
-  github::satijalab/seurat-data
+      SeuratData=github::satijalab/seurat-data
 RoxygenNote: 7.3.3
 Suggests: 
     testthat (>= 3.0.0)
