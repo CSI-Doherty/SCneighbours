@@ -25,7 +25,13 @@ Imports:
     purrr,
     magrittr,
     igraph,
-    SingleCellExperiment
+    SingleCellExperiment,
+    SeuratData,
+    scran
+Remotes:
+  bioc::release/SingleCellExperiment,
+  bioc::release/scran,
+  github::satijalab/seurat-data
 RoxygenNote: 7.3.3
 Suggests: 
     testthat (>= 3.0.0)

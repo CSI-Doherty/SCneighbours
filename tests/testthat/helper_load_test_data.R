@@ -1,6 +1,7 @@
 SeuratData::InstallData("ifnb")
 SeuratData::InstallData("pbmc3k")
 
+
 ifnb <- SeuratData::LoadData("ifnb")
 pbmc <- SeuratData::LoadData("pbmc3k")
 
