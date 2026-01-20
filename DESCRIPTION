@@ -29,8 +29,6 @@ Imports:
     SeuratData,
     scran
 Remotes:
-  bioc::release/SingleCellExperiment,
-  bioc::release/scran,
   github::satijalab/seurat-data
 RoxygenNote: 7.3.3
 Suggests: 
