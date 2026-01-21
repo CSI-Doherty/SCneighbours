@@ -15,6 +15,8 @@ install_github("https://github.com/CSI-Doherty/SCneighbours")
 library(SCneighbours)
 ```
 
+Note: The functions are using the nearest-neighbour graph from the RNA assay (RNA_nn), PLEASE change to SCT_nn if you are using the SCT assay.
+
 ## Technique 1: Visualization of Cell Neighbourhoods
 
 For individual cells or cell groups, we visualize their cell neighbourhoods as either dots or density contours on a dimensionality reduction map, uncovering tightly interwoven or widely dispersed regions. 
