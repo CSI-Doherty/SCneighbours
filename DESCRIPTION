@@ -32,6 +32,9 @@ Remotes:
     SeuratData=github::satijalab/seurat-data
 RoxygenNote: 7.3.3
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 URL: https://lachland.github.io/SCneighbours2/
+VignetteBuilder: knitr
