@@ -7,6 +7,6 @@ Description from article
 
 [Tutorial with example](https://lachland.github.io/SCneighbours2/articles/Tutorial.html)
 
-[https://github.com/LachlanD/SCneighbours2](https://github.com/LachlanD/SCneighbours2)
+[github.com/LachlanD/SCneighbours2](https://github.com/LachlanD/SCneighbours2)
 
 [Link to article]()
