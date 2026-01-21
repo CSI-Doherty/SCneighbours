@@ -27,7 +27,8 @@ Imports:
     igraph,
     SingleCellExperiment,
     SeuratData,
-    scran
+    scran,
+    Matrix
 Remotes:
     SeuratData=github::satijalab/seurat-data
 RoxygenNote: 7.3.3
