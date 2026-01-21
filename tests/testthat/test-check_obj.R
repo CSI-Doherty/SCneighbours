@@ -10,13 +10,13 @@ test_that("SCE works", {
 })
 
 test_that("Seurat graphs are valid", {
-	expect_is(SCneighbours::check_single_cell_object(seu, sce.graph, 'umap')[['graph']], "dgCMatrix")
-	expect_is(SCneighbours::check_single_cell_object(seu, seu.graph)[['graph']], "dgCMatrix")
-	expect_is(SCneighbours::check_single_cell_object(seu)[['graph']], "dgCMatrix")
+  expect_type(SCneighbours::check_single_cell_object(seu, sce.graph, 'umap')[['graph']], "dgCMatrix")
+	expect_type(SCneighbours::check_single_cell_object(seu, seu.graph)[['graph']], "dgCMatrix")
+	expect_type(SCneighbours::check_single_cell_object(seu)[['graph']], "dgCMatrix")
 })
 
 
 test_that("SCE graphs are valid", {
-	expect_is(SCneighbours::check_single_cell_object(sce, seu.graph, 'UMAP')[['graph']], "dgCMatrix")
-	expect_is(SCneighbours::check_single_cell_object(sce, sce.graph, 'UMAP')[['graph']], "dgCMatrix")
+	expect_type(SCneighbours::check_single_cell_object(sce, seu.graph, 'UMAP')[['graph']], "dgCMatrix")
+	expect_type(SCneighbours::check_single_cell_object(sce, sce.graph, 'UMAP')[['graph']], "dgCMatrix")
 })
