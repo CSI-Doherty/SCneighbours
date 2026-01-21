@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 
-I this tutorial we will use 2 different PBMC datasets from SeuratData to demonstrate usage.
+In this tutorial we will use 2 different PBMC datasets from SeuratData to demonstrate usage.
 
 ## Setup
 Load the necessary libraries.
@@ -65,7 +65,7 @@ FeaturePlot(seu, "CD3E")
 Here the T cells (CD3 positive) are split into 2 clusters for the separate datasets.
 
 ## Visualize Neighbourhoods
-Using SC neighbours we can see that there is neighbourhood sharing between the 2 seperate T cell clusters. 
+Using SCneighbours we can see that there is neighbourhood sharing between the 2 seperate T cell clusters. 
 ```{r}
 visualize_neighbourhood(seu, meta_data_column = 'seurat_clusters', meta_data_highlight = 1, 'umap', density = T) +
 visualize_neighbourhood(seu, meta_data_column = 'seurat_clusters', meta_data_highlight = 1, 'umap', density = F)
