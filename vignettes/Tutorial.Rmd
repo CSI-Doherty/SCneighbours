@@ -70,7 +70,7 @@ visualize_neighbourhood(seu, 'seurat_clusters', 2, density = F)
 A heatmap showing all neighbourhood sharing of clusters can be generated with visualise_neighbour_percentage.
 
 ```{r}
-visualise_neighbour_percentage(seu = seu, graph = 'RNA_nn', meta_data_column = 'seurat_clusters')
+visualise_neighbour_percentage(seu, graph = 'RNA_nn', meta_data_column = 'seurat_clusters')
 ```
 
 For each cell we can calculate the percentage of cells from its neighbours share the cells cluster (or other metadata column).
