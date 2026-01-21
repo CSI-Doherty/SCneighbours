@@ -115,16 +115,16 @@ CalculateContour = function(scn, meta_data_column, meta_data_highlight, reductio
 #' @importFrom rlang sym
 #' @importFrom magrittr %>%
 #' @importFrom Matrix colSums
-visualize_neighbourhood = function(seu, meta_data_column, meta_data_highlight, reduction = NULL, density = F, graph = "RNA_nn", percent = 95) {
+visualize_neighbourhood = function(obj, meta_data_column, meta_data_highlight, reduction = NULL, density = F, graph = "RNA_nn", percent = 95) {
   # all neighbour cells
-	obj <- check_single_cell_object(seu, graph, reduction)
+	scn <- check_single_cell_object(obj, graph, reduction)
 	
   #n = colnames(seu@graphs[[graph]])[Matrix::colSums(seu@graphs[[graph]][seu[[meta_data_column]] == meta_data_highlight,]) > 0] # please change "RNA_nn" to "SCT_nn" if you are using SCTranform
 	
-	g <- obj[['graph']]
-	meta <- obj[['metadata']]
-	emb <- obj[['embeddings']]
-	axis <- obj[['key']]
+	g <- scn[['graph']]
+	meta <- scn[['metadata']]
+	emb <- scn[['embeddings']]
+	axis <- scn[['key']]
 	
 	if(!meta_data_column %in% names(meta))
 	{
@@ -165,7 +165,7 @@ visualize_neighbourhood = function(seu, meta_data_column, meta_data_highlight, r
 	  #                                meta_data_column = meta_data_column, meta_data_highlight = meta_data_highlight,
 	  #                                percent = percent)
   	
-  	contour_95 <- CalculateContour(obj,
+  	contour_95 <- CalculateContour(scn,
   	                                meta_data_column = meta_data_column, meta_data_highlight = meta_data_highlight,
   	                                percent = percent)
 

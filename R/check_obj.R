@@ -42,7 +42,7 @@ check_single_cell_object <- function(obj, graph = NULL, reduction = NULL){
 			if(!(reduction %in% names(obj@reductions))){
 				stop(paste("Reduction: ", reduction, "not found.\n"), paste("Please use one of the found reduction names: ", paste(names(obj@reductions), collapse = ', ')))
 			}
-        nc <-list(
+        scn <-list(
             type = "Seurat",
             #object = obj,
             embeddings = obj@reductions[[reduction]]@cell.embeddings %>% as_tibble(rownames = "bc"),
