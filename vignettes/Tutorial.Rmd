@@ -77,7 +77,7 @@ For each cell we can calculate the percentage of cells from its neighbours share
 
 ```{r}
 seu <- calculate_outside_neighbours_cell(seu, 'seurat_clusters',colname = 'outside_neighbourhood')
-FeaturePlot(seu, outside_neighbourhood)
+FeaturePlot(seu, 'outside_neighbourhood')
 ```
 
 Here we see can see the high percentage cells form the boundaries between clusters, even when those boundaries don't appear close together on the UMAP.
