@@ -1,3 +1,8 @@
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/LachlanD/SCneighbours2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/LachlanD/SCneighbours2/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/LachlanD/SCneighbours2/graph/badge.svg)](https://app.codecov.io/gh/LachlanD/SCneighbours2)
+<!-- badges: end -->
+
 # SCneighbours
 Single-Cell Neighbourhood Exploration Tool 
 
@@ -42,8 +47,3 @@ calculate_neighbour_distance_for_all_cells(seu, reduction = "umap", colname = "n
 The cell neighbourhoods can be explored across various dimensionality reductions for insights. 
 
 For example, diffusion map and force-directed layout can provide clues about cell development by preserving the continuous cell transitioning trajectories.
-
-
-<!-- badges: start -->
-[![R-CMD-check](https://github.com/LachlanD/SCneighbours2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/LachlanD/SCneighbours2/actions/workflows/R-CMD-check.yaml)
-<!-- badges: end -->

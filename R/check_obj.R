@@ -3,6 +3,9 @@
 #' @title check_single_cell_object
 #' @description Takes a Seurat or SingleCellExperiment object and converts it into a scn_object.
 #' @param obj An Seurat or SingleCellExperiment object to convert.
+#' @param graph Name of the nearest-neighbour graph to use from seu@graphs
+#'   (e.g., "RNA_nn", "RNA_snn", or "SCT_nn").
+#' @param reduction Name of the dimensionality reduction to use (default: "umap").
 #' @return A S3 scn_object with the following elements:
 #'   \itemize{
 #'     \item \code{type} - Character string: "Seurat" or "SingleCellExperiment"
