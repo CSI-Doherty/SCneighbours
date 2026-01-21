@@ -86,5 +86,6 @@ For each cell we can calculate the variance in the distance to it it neighbours 
 
 ```{r}
 seu <- calculate_neighbour_distance_for_all_cells(seu, reduction = 'umap', colname = 'neighbour_distance')
+FeaturePlot(seu, 'neighbour_distance')
 FeaturePlot(seu, 'neighbour_distance', min.cutoff = 'q5', max.cutoff = 'q95')
 ```
