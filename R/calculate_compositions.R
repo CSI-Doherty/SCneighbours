@@ -80,6 +80,7 @@ calculate_neighbour_percentage_all_ids <- function(obj, meta_data_column, graph 
 #'   (e.g., "RNA_nn", "RNA_snn", or "SCT_nn").
 #' @param colname Name of the new metadata column to store the calculated
 #'   percentage of outside neighbours for each cell.
+#' @param reduction Name of the dimensionality reduction to use (default: "umap").
 #' @return The Seurat object with a new column in seu@meta.data containing the
 #'   percentage of neighbours (0-100) that belong to a different group than the
 #'   cell itself.
