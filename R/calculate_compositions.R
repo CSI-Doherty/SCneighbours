@@ -17,9 +17,8 @@
 #' @importFrom magrittr %>%
 #' @importFrom dplyr mutate
 #' @export
-calculate_neighbour_percentage <- function(obj, meta_data_column, meta_data_highlight, graph = 'RNA_nn', reduction = NULL){
-    
-    scn = check_single_cell_object(obj, graph, reduction)
+calculate_neighbour_percentage <- function(obj, meta_data_column, meta_data_highlight, graph = 'RNA_nn'){
+    scn = check_single_cell_object(obj, graph, reduction = NULL)
     
     g = scn[['graph']]
     meta = scn[['metadata']]
@@ -47,8 +46,8 @@ calculate_neighbour_percentage <- function(obj, meta_data_column, meta_data_high
 #'   labels, and subsequent columns (named by cell type) contain the percentage
 #'   of neighbours belonging to each cell type.
 #' @export
-calculate_neighbour_percentage_all_ids <- function(obj, meta_data_column, graph = 'RNA_nn', reduction = NULL){
-	scn = check_single_cell_object(obj, graph, reduction)
+calculate_neighbour_percentage_all_ids <- function(obj, meta_data_column, graph = 'RNA_nn'){
+	scn = check_single_cell_object(obj, graph, reduction = NULL)
 	
 	g = scn[['graph']]
 	meta = scn[['metadata']]
@@ -57,7 +56,7 @@ calculate_neighbour_percentage_all_ids <- function(obj, meta_data_column, graph 
 	ids = levels(factor(meta[,meta_data_column]))
 	results = data.frame(ids = ids)
 	for(i in ids){
-		results[,i] = calculate_neighbour_percentage(scn, meta_data_column = meta_data_column, meta_data_highlight = i, graph, reduction)$f
+		results[,i] = calculate_neighbour_percentage(scn, meta_data_column = meta_data_column, meta_data_highlight = i, graph)$f
 	}
 	return(results)
 }
@@ -80,13 +79,12 @@ calculate_neighbour_percentage_all_ids <- function(obj, meta_data_column, graph 
 #'   (e.g., "RNA_nn", "RNA_snn", or "SCT_nn").
 #' @param colname Name of the new metadata column to store the calculated
 #'   percentage of outside neighbours for each cell.
-#' @param reduction Name of the dimensionality reduction to use (default: "umap").
 #' @return The Seurat object with a new column in seu@meta.data containing the
 #'   percentage of neighbours (0-100) that belong to a different group than the
 #'   cell itself.
 #' @export
-calculate_outside_neighbours_cell <- function(obj, meta_data_column, graph = "RNA_nn", colname, reduction = NULL){
-	scn = check_single_cell_object(obj, graph, reduction)
+calculate_outside_neighbours_cell <- function(obj, meta_data_column, graph = "RNA_nn", colname){
+	scn = check_single_cell_object(obj, graph, reduction = NULL)
 	
 	g = scn[['graph']]
 	meta = scn[['metadata']]  

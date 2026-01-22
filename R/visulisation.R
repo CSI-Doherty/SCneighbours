@@ -21,7 +21,7 @@
 #' @importFrom stats dist hclust
 #' @importFrom magrittr %>%
 visualise_neighbour_percentage <- function(obj, meta_data_column, graph = NULL) {
-  scn <- check_single_cell_object(obj, graph, reduction)
+  scn <- check_single_cell_object(obj, graph, reduction = NULL)
   
 	x = calculate_neighbour_percentage_all_ids(scn, meta_data_column, graph)
 	d = dist(t(x[,-1]))
