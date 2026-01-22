@@ -21,7 +21,7 @@ for grouping and analysis.}
 \item{meta_data_highlight}{The specific value within meta_data_column to
 highlight and analyze neighbours for.}
 
-\item{either}{a nearest neigbour graph in igraph, dgCMatrix or Seurat format, or the name of a graph stored in the Seurat object.
+\item{graph}{either a nearest neigbour graph in igraph, dgCMatrix or Seurat format, or the name of a graph stored in the Seurat object.
 (e.g., "RNA_nn", "RNA_snn", or "SCT_nn").}
 }
 \value{
