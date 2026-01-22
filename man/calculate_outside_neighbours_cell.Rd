@@ -5,18 +5,17 @@
 \title{calculate_outside_neighbours_cell}
 \usage{
 calculate_outside_neighbours_cell(
-  seu,
+  obj,
   meta_data_column,
-  graph,
-  colname,
-  reduction = NULL
+  graph = "RNA_nn",
+  colname
 )
 }
 \arguments{
-\item{seu}{A Seurat object containing single-cell data with nearest-neighbour
-graphs stored in the graphs slot.}
+\item{obj}{A Seurat, SingleCellExperiment or SCNeighbours object containing single-cell data.
+If in Seurat or SingleCellExperiment form will firist be converted to SCneighbours format}
 
-\item{meta_data_column}{Name of the column in seu@meta.data to pull values from
+\item{meta_data_column}{Name of the metadata column in the object to pull values from
 for grouping and analysis.}
 
 \item{graph}{Name of the nearest-neighbour graph to use from seu@graphs

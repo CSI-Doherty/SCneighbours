@@ -60,13 +60,13 @@ visualise_neighbour_percentage <- function(obj, meta_data_column, graph = NULL) 
 #' @importFrom ks kde
 #' @importFrom grDevices contourLines
 #' @importFrom magrittr %>%
-CalculateContour = function(scn, meta_data_column, meta_data_highlight, reduction = "umap", percent = 95) {
+CalculateContour = function(obj, meta_data_column, meta_data_highlight, reduction = "umap", percent = 95) {
 	# d = Embeddings(scn, reduction = reduction) %>% as_tibble(rownames = "bc")
 
-	obj <- check_single_cell_object(scn, graph, reduction)
+  scn <- check_single_cell_object(obj, graph, reduction)
 	
-	d <- obj[['embeddings']] 
-	meta <- obj[['metadata']]
+	d <- scn[['embeddings']] 
+	meta <- scn[['metadata']]
 	
   #kd <- ks::kde(d[scn[[meta_data_column]] == meta_data_highlight,2:3], compute.cont=TRUE)
 	

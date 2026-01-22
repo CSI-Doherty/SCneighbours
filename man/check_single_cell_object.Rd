@@ -4,13 +4,18 @@
 \alias{check_single_cell_object}
 \title{check_single_cell_object}
 \usage{
-check_single_cell_object(obj, graph, reduction = NULL)
+check_single_cell_object(obj, graph = NULL, reduction = NULL)
 }
 \arguments{
-\item{obj}{An object to validate (should be either Seurat or SingleCellExperiment).}
+\item{obj}{An Seurat or SingleCellExperiment object to convert.}
+
+\item{graph}{Name of the nearest-neighbour graph to use from seu@graphs
+(e.g., "RNA_nn", "RNA_snn", or "SCT_nn").}
+
+\item{reduction}{Name of the dimensionality reduction to use (default: "umap").}
 }
 \value{
-A named list with the following elements:
+A S3 scn_object with the following elements:
   \itemize{
     \item \code{type} - Character string: "Seurat" or "SingleCellExperiment"
     \item \code{embeddings} - Tibble of the selected reduction embeddings
@@ -22,9 +27,7 @@ A named list with the following elements:
   }
 }
 \description{
-Validates that the input object is either a Seurat object or a
-  SingleCellExperiment object. Returns a named list containing standardized
-  accessors for metadata, graphs, and other components needed by package functions.
+Takes a Seurat or SingleCellExperiment object and converts it into a scn_object.
 }
 \details{
 Check Single-Cell Object Type and Extract Components

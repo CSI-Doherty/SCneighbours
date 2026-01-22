@@ -4,16 +4,11 @@
 \alias{calculate_neighbour_percentage_all_ids}
 \title{calculate_neighbour_percentage_all_ids}
 \usage{
-calculate_neighbour_percentage_all_ids(
-  seu,
-  meta_data_column,
-  graph = "RNA_nn",
-  reduction = NULL
-)
+calculate_neighbour_percentage_all_ids(obj, meta_data_column, graph = "RNA_nn")
 }
 \arguments{
-\item{seu}{A Seurat object containing single-cell data with nearest-neighbour
-graphs stored in the graphs slot.}
+\item{obj}{A Seurat, SingleCellExperiment or SCNeighbours object containing single-cell data.
+If in Seurat or SingleCellExperiment form will firist be converted to SCneighbours format}
 
 \item{meta_data_column}{Name of the column in seu@meta.data to pull values from
 for grouping and analysis.}
