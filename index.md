@@ -1,7 +1,7 @@
 # SCneighbours
 Single-Cell Neighbourhood Exploration Tool 
 
-SCneighbours isa toolkitthat allows to quantify and visualize properties of the
+SCneighbours is a toolkitthat allows to quantify and visualize properties of the
 nearest neighbour graph underlying low-dimensional embeddings. These tools allow to better
 understand the underlying complexities and make more informed interpretation and downstream
 analyses. 
