@@ -1,5 +1,5 @@
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/LachlanD/SCneighbours2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/LachlanD/SCneighbours2/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/CSI-Doherty/SCneighbours/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/CSI-Doherty/SCneighbours/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 # SCneighbours
