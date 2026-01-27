@@ -1,0 +1,49 @@
+# calculate_neighbour_percentage
+
+Calculates the percentage composition of cell types among the neighbours
+of cells belonging to a specific group. Returns a data frame showing
+what percentage of the neighbourhood belongs to each cell type.
+
+## Usage
+
+``` r
+calculate_neighbour_percentage(
+  obj,
+  meta_data_column,
+  meta_data_highlight,
+  graph = "RNA_nn"
+)
+```
+
+## Arguments
+
+- obj:
+
+  A Seurat, SingleCellExperiment or SCNeighbours object containing
+  single-cell data. If in Seurat or SingleCellExperiment form will
+  firist be converted to SCneighbours format
+
+- meta_data_column:
+
+  Name of the column in seu@meta.data to pull values from for grouping
+  and analysis.
+
+- meta_data_highlight:
+
+  The specific value within meta_data_column to highlight and analyze
+  neighbours for.
+
+- graph:
+
+  either a nearest neigbour graph in igraph, dgCMatrix or Seurat format,
+  or the name of a graph stored in the Seurat object. (e.g., "RNA_nn",
+  "RNA_snn", or "SCT_nn").
+
+## Value
+
+A data frame with columns 'ids' (cell type labels), 'Freq' (count), and
+'f' (percentage of total neighbours).
+
+## Details
+
+Calculate Neighbour Cell Type Percentages
