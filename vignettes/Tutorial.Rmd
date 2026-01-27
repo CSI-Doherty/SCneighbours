@@ -1,0 +1,103 @@
+---
+title: "Tutorial"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+In this tutorial we will use 2 different PBMC datasets from SeuratData to demonstrate usage.
+
+## Setup
+Load the necessary libraries.
+```{r setup}
+library(SCneighbours)
+library(Seurat)
+```
+
+
+## Load Data
+We will use the 3k PBMCs and the control pbmcs from the interferon B datasets.
+
+```{r}
+SeuratData::InstallData("ifnb")
+SeuratData::InstallData("pbmc3k")
+
+ifnb <- SeuratData::LoadData("ifnb")
+pbmc <- SeuratData::LoadData("pbmc3k")
+
+ifnb <- subset(ifnb, stim == 'CTRL')
+```
+
+
+## Seurat Analysis
+The PBMCs are merged without integration and Run through a standard pipeline to generate a nearest neighbour graph, clusters, and UMAP reduction.
+
+```{r}
+seu <- merge(ifnb, pbmc)
+seu <- NormalizeData(seu)
+seu <- FindVariableFeatures(seu)
+seu <- ScaleData(seu)
+seu <- RunPCA(seu, verbose = F)
+
+seu <- FindNeighbors(seu, dims = 1:30, reduction = "pca")
+seu <- FindClusters(seu, resolution = 0.5)
+
+
+seu <- RunUMAP(seu, dims = 1:30, reduction = "pca", verbose = F)
+```
+
+
+```{r}
+DimPlot(seu, group.by = c("orig.ident", "seurat_clusters"))
+FeaturePlot(seu, "CD3E")
+```
+
+Here the T cells (CD3 positive) are split into 2 clusters for the separate datasets.
+
+## Visualize Neighbourhoods
+Using SCneighbours we can see that there is neighbourhood sharing between the 2 seperate T cell clusters. 
+```{r}
+visualize_neighbourhood(seu, meta_data_column = 'seurat_clusters', meta_data_highlight = 1, 'umap', density = T) +
+visualize_neighbourhood(seu, meta_data_column = 'seurat_clusters', meta_data_highlight = 1, 'umap', density = F)
+
+visualize_neighbourhood(seu, 'seurat_clusters', 2, density = T, percent = 90) +
+visualize_neighbourhood(seu, 'seurat_clusters', 2, density = F)
+```
+
+## Generate Heatmap
+A heatmap showing all neighbourhood sharing of clusters can be generated with visualise_neighbour_percentage.
+
+```{r}
+visualise_neighbour_percentage(seu, graph = 'RNA_nn', meta_data_column = 'seurat_clusters')
+```
+
+
+## Outside Neighbours
+For each cell we can calculate the percentage of cells from its neighbours share the cells cluster (or other metadata column).
+
+```{r}
+seu <- calculate_outside_neighbours_cell(seu, 'seurat_clusters',colname = 'outside_neighbourhood')
+FeaturePlot(seu, 'outside_neighbourhood')
+```
+
+Here we see can see the high percentage cells form the boundaries between clusters, even when those boundaries don't appear close together on the UMAP.
+
+
+## Neighbour Distance
+For each cell we can calculate the variance in the distance to it it neighbours based on a reductions embeddings.  This can be useful to see if there are any problems with your UMAP or there are some problamtic cells in your dataset.
+
+```{r}
+seu <- calculate_neighbour_distance_for_all_cells(seu, reduction = 'umap', colname = 'neighbour_distance')
+FeaturePlot(seu, 'neighbour_distance')
+FeaturePlot(seu, 'neighbour_distance', min.cutoff = 'q5', max.cutoff = 'q95')
+```

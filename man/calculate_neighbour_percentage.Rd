@@ -5,16 +5,15 @@
 \title{calculate_neighbour_percentage}
 \usage{
 calculate_neighbour_percentage(
-  seu,
+  obj,
   meta_data_column,
   meta_data_highlight,
-  graph = "RNA_nn",
-  reduction = NULL
+  graph = "RNA_nn"
 )
 }
 \arguments{
-\item{seu}{A Seurat object containing single-cell data with nearest-neighbour
-graphs stored in the graphs slot.}
+\item{obj}{A Seurat, SingleCellExperiment or SCNeighbours object containing single-cell data.
+If in Seurat or SingleCellExperiment form will firist be converted to SCneighbours format}
 
 \item{meta_data_column}{Name of the column in seu@meta.data to pull values from
 for grouping and analysis.}
@@ -22,7 +21,7 @@ for grouping and analysis.}
 \item{meta_data_highlight}{The specific value within meta_data_column to
 highlight and analyze neighbours for.}
 
-\item{graph}{Name of the nearest-neighbour graph to use from seu@graphs
+\item{graph}{either a nearest neigbour graph in igraph, dgCMatrix or Seurat format, or the name of a graph stored in the Seurat object.
 (e.g., "RNA_nn", "RNA_snn", or "SCT_nn").}
 }
 \value{

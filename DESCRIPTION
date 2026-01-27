@@ -8,7 +8,7 @@ Description: Tools for visualizing and quantifying cell neighbourhoods in
     neighbourhoods as dots or density contours on dimensionality reduction
     maps, quantify neighbourhood distributions by variance in coordinates,
     and explore neighbourhoods across various dimensionality reductions.
-License: MIT + file LICENSE
+License: MIT
 Encoding: UTF-8
 LazyData: true
 Depends:
@@ -27,12 +27,17 @@ Imports:
     igraph,
     SingleCellExperiment,
     SeuratData,
-    scran
+    scran,
+    Matrix,
+    SeuratObject,
+    S4Vectors
 Remotes:
-  bioc::release/SingleCellExperiment,
-  bioc::release/scran,
-  github::satijalab/seurat-data
+    SeuratData=github::satijalab/seurat-data
 RoxygenNote: 7.3.3
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+URL: https://lachland.github.io/SCneighbours2/
+VignetteBuilder: knitr

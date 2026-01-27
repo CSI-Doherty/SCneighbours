@@ -1,13 +1,19 @@
-<!-- badges: start -->
-[![R-CMD-check](https://github.com/LachlanD/SCneighbours2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/LachlanD/SCneighbours2/actions/workflows/R-CMD-check.yaml)
-<!-- badges: end -->
+---
+title: "Get Started"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Get Started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
-# SCneighbours
-Single-Cell Neighbourhood Exploration Tool 
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 
-[SCneighbours Get Started](https://lachland.github.io/SCneighbours2/articles/Get_Started.html)
-
-[Link to paper]()
 
 ## Installation
 
@@ -28,7 +34,7 @@ For individual cells or cell groups, we visualize their cell neighbourhoods as e
 This allows us to learn which clusters might need merging if they have largely overlapped neighbourhoods, and infer trajectory relationships of cells obscured by the reduction.
 
 ```
-visualize_neighbourhood(seu, meta_data_column = "seurat_clusters", meta_data_highlight = "12", reduction = "umap", density = T)
+visualize_neighbourhood(object, meta_data_column = "seurat_clusters", meta_data_highlight = "12", reduction = "umap", density = T)
 ```
 
 ## Technique 2: Quantification of Cell Neighbourhoods
@@ -38,7 +44,7 @@ For each cell, we quantify the distribution of its neighbouring cells by the var
 Large variance indicates diminished confidence in a cell’s positioning.
 
 ```
-calculate_neighbour_distance_for_all_cells(seu, reduction = "umap", colname = "neighbourhood_variance")
+calculate_neighbour_distance_for_all_cells(object, reduction = "umap", colname = "neighbourhood_variance")
 ```
 
 ## Technique 3: Complementary reductions

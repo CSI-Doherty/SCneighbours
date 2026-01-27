@@ -20,7 +20,9 @@
 #' @importFrom ggplot2 ggplot aes geom_tile scale_fill_gradientn theme_classic theme element_text labs element_blank
 #' @importFrom stats dist hclust
 #' @importFrom magrittr %>%
-visualise_neighbour_percentage <- function(scn, meta_data_column, graph = devNULL) {
+visualise_neighbour_percentage <- function(obj, meta_data_column, graph = NULL) {
+  scn <- check_single_cell_object(obj, graph, reduction = NULL)
+  
 	x = calculate_neighbour_percentage_all_ids(scn, meta_data_column, graph)
 	d = dist(t(x[,-1]))
 	h = hclust(d)
@@ -58,13 +60,13 @@ visualise_neighbour_percentage <- function(scn, meta_data_column, graph = devNUL
 #' @importFrom ks kde
 #' @importFrom grDevices contourLines
 #' @importFrom magrittr %>%
-CalculateContour = function(scn, meta_data_column, meta_data_highlight, reduction = "umap", percent = 95) {
+CalculateContour = function(obj, meta_data_column, meta_data_highlight, reduction = "umap", percent = 95) {
 	# d = Embeddings(scn, reduction = reduction) %>% as_tibble(rownames = "bc")
 
-	obj <- check_single_cell_object(scn, graph, reduction)
+  scn <- check_single_cell_object(obj, graph, reduction)
 	
-	d <- obj[['embeddings']] 
-	meta <- obj[['metadata']]
+	d <- scn[['embeddings']] 
+	meta <- scn[['metadata']]
 	
   #kd <- ks::kde(d[scn[[meta_data_column]] == meta_data_highlight,2:3], compute.cont=TRUE)
 	
@@ -115,16 +117,16 @@ CalculateContour = function(scn, meta_data_column, meta_data_highlight, reductio
 #' @importFrom rlang sym
 #' @importFrom magrittr %>%
 #' @importFrom Matrix colSums
-visualize_neighbourhood = function(seu, meta_data_column, meta_data_highlight, reduction = NULL, density = F, graph = "RNA_nn", percent = 95) {
+visualize_neighbourhood = function(obj, meta_data_column, meta_data_highlight, reduction = NULL, density = F, graph = "RNA_nn", percent = 95) {
   # all neighbour cells
-	obj <- check_single_cell_object(seu, graph, reduction)
+	scn <- check_single_cell_object(obj, graph, reduction)
 	
   #n = colnames(seu@graphs[[graph]])[Matrix::colSums(seu@graphs[[graph]][seu[[meta_data_column]] == meta_data_highlight,]) > 0] # please change "RNA_nn" to "SCT_nn" if you are using SCTranform
 	
-	g <- obj[['graph']]
-	meta <- obj[['metadata']]
-	emb <- obj[['embeddings']]
-	axis <- obj[['key']]
+	g <- scn[['graph']]
+	meta <- scn[['metadata']]
+	emb <- scn[['embeddings']]
+	axis <- scn[['key']]
 	
 	if(!meta_data_column %in% names(meta))
 	{
@@ -165,7 +167,7 @@ visualize_neighbourhood = function(seu, meta_data_column, meta_data_highlight, r
 	  #                                meta_data_column = meta_data_column, meta_data_highlight = meta_data_highlight,
 	  #                                percent = percent)
   	
-  	contour_95 <- CalculateContour(obj,
+  	contour_95 <- CalculateContour(scn,
   	                                meta_data_column = meta_data_column, meta_data_highlight = meta_data_highlight,
   	                                percent = percent)
 

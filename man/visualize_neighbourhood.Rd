@@ -5,7 +5,7 @@
 \title{visualize_neighbourhood}
 \usage{
 visualize_neighbourhood(
-  seu,
+  obj,
   meta_data_column,
   meta_data_highlight,
   reduction = NULL,
@@ -15,10 +15,10 @@ visualize_neighbourhood(
 )
 }
 \arguments{
-\item{seu}{A Seurat object containing single-cell data with nearest-neighbour
-graphs and dimensionality reductions.}
+\item{obj}{A Seurat, SingleCellExperiment or SCNeighbours object containing single-cell data.
+If in Seurat or SingleCellExperiment form will firist be converted to SCneighbours format}
 
-\item{meta_data_column}{Name of the column in seu@meta.data to pull values from
+\item{meta_data_column}{Name of the metadata column in the object to pull values from
 for identifying the cells of interest.}
 
 \item{meta_data_highlight}{The specific value within meta_data_column to
@@ -30,9 +30,8 @@ analyze neighbours for (e.g., a specific cluster or cell type).}
 \item{density}{Logical indicating whether to plot density contours (TRUE) or
 simple point highlights (FALSE). Default is FALSE.}
 
-\item{graph}{Name of the nearest-neighbour graph to use from seu@graphs
-(default: "RNA_nn"). Use "RNA_snn" for shared nearest neighbours or
-"SCT_nn" if using SCTransform.}
+\item{graph}{either a nearest neigbour graph in igraph, dgCMatrix or Seurat format, or the name of a graph stored in the Seurat object.
+(e.g., "RNA_nn", "RNA_snn", or "SCT_nn").}
 
 \item{percent}{Percentile level for density contours when density=TRUE
 (default: 95). Only used when density=TRUE.}

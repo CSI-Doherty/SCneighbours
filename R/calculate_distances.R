@@ -12,6 +12,7 @@
 #' @export
 #' @importFrom BBmisc normalize
 #' @importFrom dplyr filter
+#' @importFrom stats var
 neighbour_distance.scaled = function(i, reduction, obj, graph = NULL) {
   # extract neighbour cells of cell i
 	

@@ -5,7 +5,7 @@
 \title{CalculateContour}
 \usage{
 CalculateContour(
-  seu,
+  obj,
   meta_data_column,
   meta_data_highlight,
   reduction = "umap",
@@ -13,11 +13,11 @@ CalculateContour(
 )
 }
 \arguments{
-\item{seu}{A Seurat object containing single-cell data with dimensionality
-reductions stored in the reductions slot.}
+\item{obj}{A Seurat, SingleCellExperiment or SCNeighbours object containing single-cell data.
+If in Seurat or SingleCellExperiment form will first be converted to SCneighbours format}
 
-\item{meta_data_column}{Name of the column in seu@meta.data to pull values from
-for subsetting cells.}
+\item{meta_data_column}{Name of the metadata column in the object to pull values from
+for identifying the cells of interest.}
 
 \item{meta_data_highlight}{The specific value within meta_data_column to
 calculate contours for.}

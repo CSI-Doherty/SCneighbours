@@ -3,6 +3,9 @@
 #' @title check_single_cell_object
 #' @description Takes a Seurat or SingleCellExperiment object and converts it into a scn_object.
 #' @param obj An Seurat or SingleCellExperiment object to convert.
+#' @param graph Name of the nearest-neighbour graph to use from seu@graphs
+#'   (e.g., "RNA_nn", "RNA_snn", or "SCT_nn").
+#' @param reduction Name of the dimensionality reduction to use (default: "umap").
 #' @return A S3 scn_object with the following elements:
 #'   \itemize{
 #'     \item \code{type} - Character string: "Seurat" or "SingleCellExperiment"
@@ -42,7 +45,7 @@ check_single_cell_object <- function(obj, graph = NULL, reduction = NULL){
 			if(!(reduction %in% names(obj@reductions))){
 				stop(paste("Reduction: ", reduction, "not found.\n"), paste("Please use one of the found reduction names: ", paste(names(obj@reductions), collapse = ', ')))
 			}
-        nc <-list(
+        scn <-list(
             type = "Seurat",
             #object = obj,
             embeddings = obj@reductions[[reduction]]@cell.embeddings %>% as_tibble(rownames = "bc"),
