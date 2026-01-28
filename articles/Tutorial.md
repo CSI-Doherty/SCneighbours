@@ -9,6 +9,8 @@ Load the necessary libraries.
 
 ``` r
 library(SCneighbours)
+#> Warning: replacing previous import 'S4Arrays::makeNindexFromArrayViewport' by
+#> 'DelayedArray::makeNindexFromArrayViewport' when loading 'SummarizedExperiment'
 library(Seurat)
 #> Loading required package: SeuratObject
 #> Loading required package: sp
@@ -29,11 +31,11 @@ datasets.
 
 ``` r
 SeuratData::InstallData("ifnb")
-#> Warning: The following packages are already installed and will not be
-#> reinstalled: ifnb
+#> Installing package into '/home/runner/work/_temp/Library'
+#> (as 'lib' is unspecified)
 SeuratData::InstallData("pbmc3k")
-#> Warning: The following packages are already installed and will not be
-#> reinstalled: pbmc3k
+#> Installing package into '/home/runner/work/_temp/Library'
+#> (as 'lib' is unspecified)
 
 ifnb <- SeuratData::LoadData("ifnb")
 #> Validating object structure
