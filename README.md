@@ -5,7 +5,7 @@
 # SCneighbours
 Single-Cell Neighbourhood Exploration Tool 
 
-[SCneighbours Get Started](https://lachland.github.io/SCneighbours2/articles/Get_Started.html)
+[SCneighbours Get Started](https://csi-doherty.github.io/SCneighbours/articles/Get_Started.html)
 
 [Link to paper]()
 
