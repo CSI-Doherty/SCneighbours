@@ -92,14 +92,14 @@ SeuratData to demonstrate usage.</p>
 <p>We will use the 3k PBMCs and the control pbmcs from the interferon B
 datasets.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">SeuratData</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/InstallData.html" class="external-link">InstallData</a></span><span class="op">(</span><span class="st">"ifnb"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Installing package into '/home/runner/work/_temp/Library'</span></span>
-<span><span class="co">#&gt; (as 'lib' is unspecified)</span></span>
-<span><span class="fu">SeuratData</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/InstallData.html" class="external-link">InstallData</a></span><span class="op">(</span><span class="st">"pbmc3k"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Installing package into '/home/runner/work/_temp/Library'</span></span>
-<span><span class="co">#&gt; (as 'lib' is unspecified)</span></span>
+<code class="sourceCode R"><span><span class="fu">SeuratData</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/SeuratData/man/InstallData.html" class="external-link">InstallData</a></span><span class="op">(</span><span class="st">"ifnb"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: The following packages are already installed and will not be</span></span>
+<span><span class="co">#&gt; reinstalled: ifnb</span></span>
+<span><span class="fu">SeuratData</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/SeuratData/man/InstallData.html" class="external-link">InstallData</a></span><span class="op">(</span><span class="st">"pbmc3k"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: The following packages are already installed and will not be</span></span>
+<span><span class="co">#&gt; reinstalled: pbmc3k</span></span>
 <span></span>
-<span><span class="va">ifnb</span> <span class="op">&lt;-</span> <span class="fu">SeuratData</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/LoadData.html" class="external-link">LoadData</a></span><span class="op">(</span><span class="st">"ifnb"</span><span class="op">)</span></span>
+<span><span class="va">ifnb</span> <span class="op">&lt;-</span> <span class="fu">SeuratData</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/SeuratData/man/LoadData.html" class="external-link">LoadData</a></span><span class="op">(</span><span class="st">"ifnb"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Validating object structure</span></span>
 <span><span class="co">#&gt; Updating object slots</span></span>
 <span><span class="co">#&gt; Ensuring keys are in the proper structure</span></span>
@@ -110,7 +110,7 @@ datasets.</p>
 <span><span class="co">#&gt; Validating object structure for Assay 'RNA'</span></span>
 <span><span class="co">#&gt; Object representation is consistent with the most current Seurat version</span></span>
 <span><span class="co">#&gt; Warning: Assay RNA changing from Assay to Assay5</span></span>
-<span><span class="va">pbmc</span> <span class="op">&lt;-</span> <span class="fu">SeuratData</span><span class="fu">::</span><span class="fu"><a href="https://satijalab.org/seurat/reference/LoadData.html" class="external-link">LoadData</a></span><span class="op">(</span><span class="st">"pbmc3k"</span><span class="op">)</span></span>
+<span><span class="va">pbmc</span> <span class="op">&lt;-</span> <span class="fu">SeuratData</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/SeuratData/man/LoadData.html" class="external-link">LoadData</a></span><span class="op">(</span><span class="st">"pbmc3k"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Validating object structure</span></span>
 <span><span class="co">#&gt; Updating object slots</span></span>
 <span><span class="co">#&gt; Ensuring keys are in the proper structure</span></span>
@@ -132,20 +132,20 @@ pipeline to generate a nearest neighbour graph, clusters, and UMAP
 reduction.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">seu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">ifnb</span>, <span class="va">pbmc</span><span class="op">)</span></span>
-<span><span class="va">seu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/NormalizeData.html" class="external-link">NormalizeData</a></span><span class="op">(</span><span class="va">seu</span><span class="op">)</span></span>
+<span><span class="va">seu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Seurat/man/NormalizeData.html" class="external-link">NormalizeData</a></span><span class="op">(</span><span class="va">seu</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Normalizing layer: counts.ifnb</span></span>
 <span><span class="co">#&gt; Normalizing layer: counts.pbmc3k</span></span>
-<span><span class="va">seu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/FindVariableFeatures.html" class="external-link">FindVariableFeatures</a></span><span class="op">(</span><span class="va">seu</span><span class="op">)</span></span>
+<span><span class="va">seu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Seurat/man/FindVariableFeatures.html" class="external-link">FindVariableFeatures</a></span><span class="op">(</span><span class="va">seu</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Finding variable features for layer counts.ifnb</span></span>
 <span><span class="co">#&gt; Finding variable features for layer counts.pbmc3k</span></span>
-<span><span class="va">seu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/ScaleData.html" class="external-link">ScaleData</a></span><span class="op">(</span><span class="va">seu</span><span class="op">)</span></span>
+<span><span class="va">seu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Seurat/man/ScaleData.html" class="external-link">ScaleData</a></span><span class="op">(</span><span class="va">seu</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Centering and scaling data matrix</span></span>
-<span><span class="va">seu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/RunPCA.html" class="external-link">RunPCA</a></span><span class="op">(</span><span class="va">seu</span>, verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
+<span><span class="va">seu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Seurat/man/RunPCA.html" class="external-link">RunPCA</a></span><span class="op">(</span><span class="va">seu</span>, verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">seu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/FindNeighbors.html" class="external-link">FindNeighbors</a></span><span class="op">(</span><span class="va">seu</span>, dims <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">30</span>, reduction <span class="op">=</span> <span class="st">"pca"</span><span class="op">)</span></span>
+<span><span class="va">seu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Seurat/man/FindNeighbors.html" class="external-link">FindNeighbors</a></span><span class="op">(</span><span class="va">seu</span>, dims <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">30</span>, reduction <span class="op">=</span> <span class="st">"pca"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Computing nearest neighbor graph</span></span>
 <span><span class="co">#&gt; Computing SNN</span></span>
-<span><span class="va">seu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/FindClusters.html" class="external-link">FindClusters</a></span><span class="op">(</span><span class="va">seu</span>, resolution <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span><span class="va">seu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Seurat/man/FindClusters.html" class="external-link">FindClusters</a></span><span class="op">(</span><span class="va">seu</span>, resolution <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Number of nodes: 9248</span></span>
@@ -157,15 +157,15 @@ reduction.</p>
 <span><span class="co">#&gt; Elapsed time: 1 seconds</span></span>
 <span></span>
 <span></span>
-<span><span class="va">seu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://satijalab.org/seurat/reference/RunUMAP.html" class="external-link">RunUMAP</a></span><span class="op">(</span><span class="va">seu</span>, dims <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">30</span>, reduction <span class="op">=</span> <span class="st">"pca"</span>, verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
+<span><span class="va">seu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Seurat/man/RunUMAP.html" class="external-link">RunUMAP</a></span><span class="op">(</span><span class="va">seu</span>, dims <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">30</span>, reduction <span class="op">=</span> <span class="st">"pca"</span>, verbose <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric</span></span>
 <span><span class="co">#&gt; To use Python UMAP via reticulate, set umap.method to 'umap-learn' and metric to 'correlation'</span></span>
 <span><span class="co">#&gt; This message will be shown once per session</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://satijalab.org/seurat/reference/DimPlot.html" class="external-link">DimPlot</a></span><span class="op">(</span><span class="va">seu</span>, group.by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"orig.ident"</span>, <span class="st">"seurat_clusters"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/Seurat/man/DimPlot.html" class="external-link">DimPlot</a></span><span class="op">(</span><span class="va">seu</span>, group.by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"orig.ident"</span>, <span class="st">"seurat_clusters"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html" class="external-link">FeaturePlot</a></span><span class="op">(</span><span class="va">seu</span>, <span class="st">"CD3E"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/Seurat/man/FeaturePlot.html" class="external-link">FeaturePlot</a></span><span class="op">(</span><span class="va">seu</span>, <span class="st">"CD3E"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial_files/figure-html/unnamed-chunk-4-2.png" class="r-plt" alt="" width="700"></p>
 <p>Here the T cells (CD3 positive) are split into 2 clusters for the
 separate datasets.</p>
@@ -201,7 +201,7 @@ generated with visualise_neighbour_percentage.</p>
 neighbours share the cells cluster (or other metadata column).</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">seu</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_outside_neighbours_cell.html">calculate_outside_neighbours_cell</a></span><span class="op">(</span><span class="va">seu</span>, <span class="st">'seurat_clusters'</span>,colname <span class="op">=</span> <span class="st">'outside_neighbourhood'</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html" class="external-link">FeaturePlot</a></span><span class="op">(</span><span class="va">seu</span>, <span class="st">'outside_neighbourhood'</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/Seurat/man/FeaturePlot.html" class="external-link">FeaturePlot</a></span><span class="op">(</span><span class="va">seu</span>, <span class="st">'outside_neighbourhood'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="700"></p>
 <p>Here we see can see the high percentage cells form the boundaries
 between clusters, even when those boundaries don’t appear close together
@@ -216,10 +216,10 @@ if there are any problems with your UMAP or there are some problamtic
 cells in your dataset.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">seu</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculate_neighbour_distance_for_all_cells.html">calculate_neighbour_distance_for_all_cells</a></span><span class="op">(</span><span class="va">seu</span>, reduction <span class="op">=</span> <span class="st">'umap'</span>, colname <span class="op">=</span> <span class="st">'neighbour_distance'</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html" class="external-link">FeaturePlot</a></span><span class="op">(</span><span class="va">seu</span>, <span class="st">'neighbour_distance'</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/Seurat/man/FeaturePlot.html" class="external-link">FeaturePlot</a></span><span class="op">(</span><span class="va">seu</span>, <span class="st">'neighbour_distance'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://satijalab.org/seurat/reference/FeaturePlot.html" class="external-link">FeaturePlot</a></span><span class="op">(</span><span class="va">seu</span>, <span class="st">'neighbour_distance'</span>, min.cutoff <span class="op">=</span> <span class="st">'q5'</span>, max.cutoff <span class="op">=</span> <span class="st">'q95'</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/Seurat/man/FeaturePlot.html" class="external-link">FeaturePlot</a></span><span class="op">(</span><span class="va">seu</span>, <span class="st">'neighbour_distance'</span>, min.cutoff <span class="op">=</span> <span class="st">'q5'</span>, max.cutoff <span class="op">=</span> <span class="st">'q95'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial_files/figure-html/unnamed-chunk-8-2.png" class="r-plt" alt="" width="700"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

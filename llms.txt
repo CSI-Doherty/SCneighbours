@@ -9,10 +9,10 @@ complexities and make more informed interpretation and downstream
 analyses.
 
 [Get
-Started](https://lachland.github.io/SCneighbours2/articles/Get_Started.html)
+Started](https://csi-doherty.github.io/SCneighbours/articles/Get_Started.html)
 
 [Tutorial with
-example](https://lachland.github.io/SCneighbours2/articles/Tutorial.html)
+example](https://csi-doherty.github.io/SCneighbours/articles/Tutorial.html)
 
 [github.com/CSI-Doherty/SCneighbours](https://github.com/CSI-Doherty/SCneighbours)
 

@@ -31,11 +31,11 @@ datasets.
 
 ``` r
 SeuratData::InstallData("ifnb")
-#> Installing package into '/home/runner/work/_temp/Library'
-#> (as 'lib' is unspecified)
+#> Warning: The following packages are already installed and will not be
+#> reinstalled: ifnb
 SeuratData::InstallData("pbmc3k")
-#> Installing package into '/home/runner/work/_temp/Library'
-#> (as 'lib' is unspecified)
+#> Warning: The following packages are already installed and will not be
+#> reinstalled: pbmc3k
 
 ifnb <- SeuratData::LoadData("ifnb")
 #> Validating object structure
